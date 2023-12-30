@@ -25,6 +25,14 @@ export const Navbar = () => {
 					</li>
 					<li>
 						<a
+							href="#aboutme"
+							className="text-xl font-medium hover:text-purple-300"
+						>
+							About me
+						</a>
+					</li>
+					<li>
+						<a
 							href="#contact"
 							className="text-xl font-medium hover:text-purple-300"
 						>
