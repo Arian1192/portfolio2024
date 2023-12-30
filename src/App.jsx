@@ -1,4 +1,5 @@
 import './App.css';
+import { AboutMe } from './page/AboutMe';
 import { Knowlegde } from './page/Knowlegde';
 
 import { LandingPage } from './page/LandingPage';
@@ -7,6 +8,7 @@ function App() {
 		<div className="text-[#FAFAFA]">
 			<LandingPage id={'landing'} />
 			<Knowlegde id={'knowledge'} />
+			<AboutMe id={'aboutme'} />
 		</div>
 	);
 }

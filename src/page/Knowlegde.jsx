@@ -4,6 +4,7 @@ import { icons } from '../icons/icons';
 import { motion } from 'framer-motion';
 import { TechStack } from '../components/TechStack';
 
+
 const AnimatedIcon = ({ icon }) => {
 	return (
 		<motion.div
@@ -87,12 +88,8 @@ export const Knowlegde = ({ id }) => {
 							/>
 						</ol>
 					</div>
-					<div>
-						<span></span>
-					</div>
 				</div>
 			</div>
 		</div>
 	);
 };
-
