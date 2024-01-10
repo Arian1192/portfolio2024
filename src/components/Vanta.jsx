@@ -3,13 +3,15 @@ import GLOBE from 'vanta/dist/vanta.globe.min';
 import * as THREE from 'three';
 
 export const Vanta = () => {
-	const [vantaEffect, setVantaEffect] = useState(0);
+	const [vantaEffect, setVantaEffect] = useState(null);
 	const vantaRef = useRef(null);
 
 	useEffect(() => {
-		if (!vantaEffect) {
-			setVantaEffect(
-				GLOBE({
+		// Adding try-catch for better error handling
+		try {
+			if (!vantaEffect) {
+				// Wrap VANTA initialization in a variable for better debugging
+				const effectInstance = GLOBE({
 					el: vantaRef.current,
 					THREE: THREE,
 					mouseControls: true,
@@ -23,13 +25,30 @@ export const Vanta = () => {
 					color: 0x855bb1,
 					color2: 0xfafafa,
 					backgroundAlpha: 0.0,
-				})
-			);
+					vertexColors: true,
+				});
+
+				const positionAttribute = effectInstance.geometry.attributes.position;
+				const positionArray = positionAttribute.array;
+
+				console.log('Position Attribute Values:', positionArray);
+
+				// Set the effect instance to state
+				setVantaEffect(effectInstance);
+			}
+		} catch (error) {
+			console.error('Error initializing Vanta effect:', error);
 		}
+
+		// Cleanup function
 		return () => {
-			if (vantaEffect) vantaEffect.destroy();
+			if (vantaEffect) {
+				// Destroy the effect on component unmount
+				vantaEffect.destroy();
+			}
 		};
 	}, [vantaEffect]);
+
 	return (
 		<div
 			ref={vantaRef}
