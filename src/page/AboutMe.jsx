@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
-import Arian from '../assets/Arian.jpg';
+// import Arian from '../assets/Arian.jpg';
+import { Terminal } from '../components/Terminal';
 export const AboutMe = ({ id }) => {
-	console.log(id);
+
 	return (
 		<div
 			id={id}
@@ -14,14 +15,16 @@ export const AboutMe = ({ id }) => {
 				<div className="absolute w-[100%] h-96 -z-10 -top-10 rotate-90 left-[60%]  bg-MagicPatternGrid bg-cover animate-pulse rounded-full object-cover"></div>
 				<div className="absolute w-[100%] h-80 -z-10 top-60 -left-[70%]  rounded-full object-cover bg-MagicPattern  bg-cover animate-pulse"></div>
 			</h1>
-			<div className="z-40 relative">
+			{/* <div className="z-40 relative">
 				<img
 					src={Arian}
 					alt="Arian"
 					className="w-80 z-0 h-80 rounded-full object-cover  mt-10"
 				></img>
-				<div className="absolute bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-gray-300 via-fuchsia-600 to-orange-600 backdrop-blur-md animate-spin bg-white/4  rounded-full mb-4 -z-10 top-10 blur-lg left-0 backdrop-hue-rotate-15 w-80 h-80 "></div>
-			</div>
+				<div className="absolute bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-700 via-fuchsia-600 to-red-600  bg-white/4 animate-pulse rounded-full mb-4 -z-10 top-10 blur-md left-0  w-80 h-80 "></div>
+			</div> */}
+
+			<Terminal/>
 		</div>
 	);
 };
