@@ -1,13 +1,12 @@
 import { ReactTerminal } from 'react-terminal';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import '../App.css';
 
 //TODO: PASARLO A COMPONENTES SEPARADOS Y HACERLOS MAS SIMPLES.
 
-
 export const WelcomeMessage = () => {
 	return (
-		<p className='text-sm md:text-lg'>
+		<p className="text-sm md:text-lg">
 			Type <strong>&quot;help&quot;</strong> to see the commands
 			<br />
 		</p>
@@ -52,7 +51,7 @@ export const ErrorMessage = () => {
 export const HelpCommand = () => {
 	return (
 		<>
-			<ul className='text-xs md:text-lg'>
+			<ul className="text-xs md:text-lg">
 				<li>
 					<strong className="text-purple-400">clear</strong> - Brother, this one
 					just cleans the console. Nice and tidy, you know?
@@ -79,7 +78,7 @@ export const HelpCommand = () => {
 };
 
 export const Terminal = () => {
-    const [path, setPath] = useState('~');
+	const [path, setPath] = useState('~');
 	console.log(path);
 	const changeDirectory = (directory) => {
 		const listDirectory = ['projects', 'skills', 'contact'];
@@ -201,9 +200,14 @@ export const Terminal = () => {
 		...getCommandsForPath(path),
 	};
 
+	useEffect(() => {
+		const element = document.getElementById('terminalEditor');
+		element.classList.add('terminal');
+	}, []);
+
 	return (
-		<div className="container p-5 h-1/2 text-[20px] md:max-w-4xl z-40 mt-12">
-            <ReactTerminal
+		<div className="container p-5 h-1/2 text-[20px] md:max-w-4xl z-40 mt-12 ">
+			<ReactTerminal
 				commands={commands}
 				welcomeMessage={<WelcomeMessage />}
 				showControlBar={true}
