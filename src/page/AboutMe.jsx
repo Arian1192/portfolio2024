@@ -6,7 +6,7 @@ export const AboutMe = ({ id }) => {
 	return (
 		<div
 			id={id}
-			className="w-full h-screen bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black flex flex-col justify-start items-center overflow-hidden "
+			className="w-full h-screen bg-[radial-gradient(ellipse_at_bottom,_var(--tw-gradient-stops))] from-gray-700 via-gray-900 to-black flex flex-col justify-center items-center overflow-hidden "
 		>
 			<h1 className="relative z-0 mb-4 mt-12 text-5xl font-extrabold text-gray-900 dark:text-white md:text-4xl lg:text-7xl">
 				<span className="text-transparent drop-shadow-2xl bg-clip-text bg-gradient-to-r to-white from-purple-600">

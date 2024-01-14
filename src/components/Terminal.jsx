@@ -6,7 +6,7 @@ import '../App.css';
 
 export const WelcomeMessage = () => {
 	return (
-		<p className="text-sm md:text-lg">
+		<p>
 			Type <strong>&quot;help&quot;</strong> to see the commands
 			<br />
 		</p>
@@ -40,18 +40,18 @@ export const WhoAmi = () => {
 
 export const ErrorMessage = () => {
 	return (
-		<>
+		<div>
 			<span className="bg-gradient-to-r from-purple-600 to-pink-400 inline-block text-transparent bg-clip-text">
 				Maybe if u type fuck, you find the question
 			</span>
-		</>
+		</div>
 	);
 };
 
 export const HelpCommand = () => {
 	return (
 		<>
-			<ul className="text-xs md:text-lg">
+			<ul>
 				<li>
 					<strong className="text-purple-400">clear</strong> - Brother, this one
 					just cleans the console. Nice and tidy, you know?
@@ -200,13 +200,15 @@ export const Terminal = () => {
 		...getCommandsForPath(path),
 	};
 
+	// cannot modify scroll directly from the ReactTerminal, so i use useEffect getElementById and add a class.whoam
 	useEffect(() => {
 		const element = document.getElementById('terminalEditor');
 		element.classList.add('terminal');
 	}, []);
 
+	//TODO MODIFICAR EL CSS PARA QUE TENGA EL ROUNDED FINO y que al hacer la pantalla pequeña haga el padding.
 	return (
-		<div className="container p-5 h-1/2 text-[20px] md:max-w-4xl z-40 mt-12 ">
+		<div className="container md:border-2 p-5 md:p-0  rounded-lg md:border-zinc-600 h-1/2 text-[20px] md:max-w-4xl z-40 mt-12 ">
 			<ReactTerminal
 				commands={commands}
 				welcomeMessage={<WelcomeMessage />}
