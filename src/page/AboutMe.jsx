@@ -1,7 +1,10 @@
 /* eslint-disable react/prop-types */
 // import Arian from '../assets/Arian.jpg';
+import { useState } from 'react';
 import { Terminal } from '../components/Terminal';
+import { TerminalController } from '../components/TerminalController';
 export const AboutMe = ({ id }) => {
+	const [isRecruiter, setIsRecruiter] = useState(false);
 
 	return (
 		<div
@@ -15,6 +18,12 @@ export const AboutMe = ({ id }) => {
 				<div className="absolute w-[100%] h-96 -z-10 -top-10 rotate-90 left-[60%]  bg-MagicPatternGrid bg-cover animate-pulse rounded-full object-cover"></div>
 				<div className="absolute w-[100%] h-80 -z-10 top-60 -left-[70%]  rounded-full object-cover bg-MagicPattern  bg-cover animate-pulse"></div>
 			</h1>
+			<div>
+				<p className="text-lg w-96 font-Montserrat text-pretty mt-14">
+					If your are a recruiter, please click on the button below.
+				</p>
+				<button onClick={() => setIsRecruiter(true)}>Recruiter Button</button>
+			</div>
 			{/* <div className="z-40 relative">
 				<img
 					src={Arian}
@@ -23,8 +32,11 @@ export const AboutMe = ({ id }) => {
 				></img>
 				<div className="absolute bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-700 via-fuchsia-600 to-red-600  bg-white/4 animate-pulse rounded-full mb-4 -z-10 top-10 blur-md left-0  w-80 h-80 "></div>
 			</div> */}
-
-			<Terminal/>
+			{/* <TerminalController /> */}
+			<Terminal
+				isRecruiter={isRecruiter}
+				text={`Please recruiter type help to see the commands available`}
+			/>
 		</div>
 	);
 };

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { ReactTerminal } from 'react-terminal';
 import { useState, useEffect } from 'react';
 import '../App.css';
@@ -77,9 +78,46 @@ export const HelpCommand = () => {
 	);
 };
 
-export const Terminal = () => {
+export const Terminal = ({ isRecruiter, text }) => {
+	console.log(isRecruiter);
 	const [path, setPath] = useState('~');
-	console.log(path);
+	const [namePath, setNamePath] = useState();
+
+	const typingRender = (text, updater, interval) => {
+		const spanText = document.getElementsByClassName(
+			'index_preWhiteSpace__7KwuG'
+		);
+		let localTypingIndex = 0;
+		let localTyping = '';
+
+		if (text) {
+			let printer = setInterval(() => {
+				if (localTypingIndex < text.length) {
+					spanText[0].textContent =
+						spanText[0].textContent + text[localTypingIndex];
+					updater((localTyping += text[localTypingIndex]));
+
+					localTypingIndex += 1;
+				} else {
+					localTypingIndex = 0;
+					localTyping = '';
+					clearInterval(printer);
+					simulateKeyPress(spanText[0], 'Enter');
+				}
+			}, interval);
+		}
+	};
+
+	const simulateKeyPress = (element, key) => {
+		const event = new KeyboardEvent('keydown', { key });
+		element.dispatchEvent(event);
+	};
+
+	useEffect(() => {
+		if (isRecruiter) {
+			typingRender(text, setNamePath, 150);
+		}
+	}, [isRecruiter, text]);
 	const changeDirectory = (directory) => {
 		const listDirectory = ['projects', 'skills', 'contact'];
 
@@ -131,6 +169,11 @@ export const Terminal = () => {
 				'AlexaTwitch-mono-repo ',
 				' ',
 			],
+			blog: (
+				<a href="https://blog-theta-eight-18.vercel.app/">
+					My Blog , Click to see
+				</a>
+			),
 			cd: (directory) => changeDirectory(directory),
 		};
 
@@ -200,13 +243,11 @@ export const Terminal = () => {
 		...getCommandsForPath(path),
 	};
 
-	// cannot modify scroll directly from the ReactTerminal, so i use useEffect getElementById and add a class.whoam
 	useEffect(() => {
 		const element = document.getElementById('terminalEditor');
 		element.classList.add('terminal');
 	}, []);
 
-	//TODO MODIFICAR EL CSS PARA QUE TENGA EL ROUNDED FINO y que al hacer la pantalla pequeña haga el padding.
 	return (
 		<div className="container md:border-2 p-5 md:p-0  rounded-lg md:border-zinc-600 h-1/2 text-[20px] md:max-w-4xl z-40 mt-12 ">
 			<ReactTerminal
@@ -224,7 +265,7 @@ export const Terminal = () => {
 				prompt={path}
 				theme="my-custom-theme"
 				errorMessage={<ErrorMessage />}
-			></ReactTerminal>
+			/>
 		</div>
 	);
 };
