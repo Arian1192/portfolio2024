@@ -1,13 +1,13 @@
+/* eslint-disable react/prop-types */
 import { ReactTerminal } from 'react-terminal';
-import { useState } from 'react';
-
+import { useState, useEffect } from 'react';
+import '../App.css';
 
 //TODO: PASARLO A COMPONENTES SEPARADOS Y HACERLOS MAS SIMPLES.
 
-
 export const WelcomeMessage = () => {
 	return (
-		<p className='text-sm md:text-lg'>
+		<p>
 			Type <strong>&quot;help&quot;</strong> to see the commands
 			<br />
 		</p>
@@ -41,18 +41,18 @@ export const WhoAmi = () => {
 
 export const ErrorMessage = () => {
 	return (
-		<>
+		<div>
 			<span className="bg-gradient-to-r from-purple-600 to-pink-400 inline-block text-transparent bg-clip-text">
 				Maybe if u type fuck, you find the question
 			</span>
-		</>
+		</div>
 	);
 };
 
 export const HelpCommand = () => {
 	return (
 		<>
-			<ul className='text-xs md:text-lg'>
+			<ul>
 				<li>
 					<strong className="text-purple-400">clear</strong> - Brother, this one
 					just cleans the console. Nice and tidy, you know?
@@ -78,9 +78,46 @@ export const HelpCommand = () => {
 	);
 };
 
-export const Terminal = () => {
-    const [path, setPath] = useState('~');
-	console.log(path);
+export const Terminal = ({ isRecruiter, text }) => {
+	console.log(isRecruiter);
+	const [path, setPath] = useState('~');
+	const [namePath, setNamePath] = useState();
+
+	const typingRender = (text, updater, interval) => {
+		const spanText = document.getElementsByClassName(
+			'index_preWhiteSpace__7KwuG'
+		);
+		let localTypingIndex = 0;
+		let localTyping = '';
+
+		if (text) {
+			let printer = setInterval(() => {
+				if (localTypingIndex < text.length) {
+					spanText[0].textContent =
+						spanText[0].textContent + text[localTypingIndex];
+					updater((localTyping += text[localTypingIndex]));
+
+					localTypingIndex += 1;
+				} else {
+					localTypingIndex = 0;
+					localTyping = '';
+					clearInterval(printer);
+					simulateKeyPress(spanText[0], 'Enter');
+				}
+			}, interval);
+		}
+	};
+
+	const simulateKeyPress = (element, key) => {
+		const event = new KeyboardEvent('keydown', { key });
+		element.dispatchEvent(event);
+	};
+
+	useEffect(() => {
+		if (isRecruiter) {
+			typingRender(text, setNamePath, 150);
+		}
+	}, [isRecruiter, text]);
 	const changeDirectory = (directory) => {
 		const listDirectory = ['projects', 'skills', 'contact'];
 
@@ -132,6 +169,11 @@ export const Terminal = () => {
 				'AlexaTwitch-mono-repo ',
 				' ',
 			],
+			blog: (
+				<a href="https://blog-theta-eight-18.vercel.app/">
+					My Blog , Click to see
+				</a>
+			),
 			cd: (directory) => changeDirectory(directory),
 		};
 
@@ -201,9 +243,14 @@ export const Terminal = () => {
 		...getCommandsForPath(path),
 	};
 
+	useEffect(() => {
+		const element = document.getElementById('terminalEditor');
+		element.classList.add('terminal');
+	}, []);
+
 	return (
-		<div className="container p-5 h-1/2 text-[20px] md:max-w-4xl z-40 mt-12">
-            <ReactTerminal
+		<div className="container md:border-2 p-5 md:p-0  rounded-lg md:border-zinc-600 h-1/2 text-[20px] md:max-w-4xl z-40 mt-12 ">
+			<ReactTerminal
 				commands={commands}
 				welcomeMessage={<WelcomeMessage />}
 				showControlBar={true}
@@ -218,7 +265,7 @@ export const Terminal = () => {
 				prompt={path}
 				theme="my-custom-theme"
 				errorMessage={<ErrorMessage />}
-			></ReactTerminal>
+			/>
 		</div>
 	);
 };
